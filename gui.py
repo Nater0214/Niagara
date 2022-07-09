@@ -53,13 +53,16 @@ class Gui:
             self.window_layout.addWidget(self.stats_group, 1, 0, 1, 2)
             self.stats_group_layout = QVBoxLayout(self.stats_group)
 
-            self.stats_group_layout.addSpacing(5)
+            self.stats_group_layout.addSpacing(10)
 
             self.total_stat = QLabel(f"Total times: {len(dates.all())}")
             self.stats_group_layout.addWidget(self.total_stat)
 
-            self.average_between_stat = QLabel(f"Average days between: {stats.average_days_between()}")
+            self.average_between_stat = QLabel(f"Average days between: {stats.average_between()}")
             self.stats_group_layout.addWidget(self.average_between_stat)
+
+            self.average_deviation_stat = QLabel(f"Average deviation: {stats.average_deviation()}")
+            self.stats_group_layout.addWidget(self.average_deviation_stat)
 
 
         # Button methods
