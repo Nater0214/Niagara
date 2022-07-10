@@ -37,8 +37,7 @@ class MainGui:
 
             self.main_window = QWidget()
             self.main_window.setWindowTitle("Niagara")
-            self.main_window.setMinimumWidth(300)
-
+            self.main_window.setFixedSize(400,200)
             self.window_layout = QGridLayout(self.main_window)
 
             # Date settings

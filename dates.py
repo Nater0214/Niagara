@@ -7,11 +7,24 @@ from datetime import date
 
 # Methods
 def all() -> list[date]:
+def all() -> list[date]:
     """Returns all dates as datetime.date objects"""
     
     # Get lines
+    # Get lines
     with open("dates.txt", 'rt') as file:
         lines = [line.rstrip() for line in file]
+
+    # Convert lines into datetime.date objects and return
+    # I had to write this as three lines and merge them lol
+    return [date(date_part[0], date_part[1], date_part[2]) for date_part in [[int(n) for n in date_part] for date_part in [line.split('-') for line in lines]]]
+
+
+def last_date() -> date:
+    """Returns the date closest to today. It should be the last date in the file, unless it was messed up."""
+
+    # I know this isn't proper use of the walrus operator but I dont care; it still works
+    return (dates_ := all())[len(dates_) - 1]
 
     # Convert lines into datetime.date objects and return
     # I had to write this as three lines and merge them lol
