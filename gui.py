@@ -17,10 +17,9 @@ import stats
 
 
 # Classes
-class Gui:
+class MainGui:
     """Holds gui elemets and methods"""
 
-    # Subclasses
     class Elements:
         # Gui elements
 
@@ -34,10 +33,11 @@ class Gui:
             with open("style.qss", 'rt') as file:
                 self.app.setStyleSheet(file.read())
 
-            self.window = QWidget()
-            self.window.setWindowTitle("Niagara")
+            self.main_window = QWidget()
+            self.main_window.setWindowTitle("Niagara")
+            self.main_window.setMinimumWidth(300)
 
-            self.window_layout = QGridLayout(self.window)
+            self.window_layout = QGridLayout(self.main_window)
 
             # Date settings
             self.it_happened_button = QPushButton("It happened")
@@ -50,7 +50,7 @@ class Gui:
 
             # Stats
             self.stats_group = QGroupBox("Stats:")
-            self.window_layout.addWidget(self.stats_group, 1, 0, 1, 2)
+            self.window_layout.addWidget(self.stats_group, 1, 0, 3, 2)
             self.stats_group_layout = QVBoxLayout(self.stats_group)
 
             self.stats_group_layout.addSpacing(10)
@@ -64,16 +64,37 @@ class Gui:
             self.average_deviation_stat = QLabel(f"Average deviation: {stats.average_deviation()}")
             self.stats_group_layout.addWidget(self.average_deviation_stat)
 
+            # Refresh and settings
+            self.refresh_button = QPushButton("Refresh")
+            self.window_layout.addWidget(self.refresh_button, 2, 2)
+            self.refresh_button.clicked.connect(self.refresh)
+
+            self.settings_button = QPushButton("Settings")
+            self.window_layout.addWidget(self.settings_button, 3, 2)
+            self.settings_button.clicked.connect(self.open_settings)
+
 
         # Button methods
         def it_happened(self) -> None:
             if not dates.save():
                 print('\a')
+            self.refresh()
         
 
         def undo_today(self) -> None:
             if not dates.undo_today():
                 print('\a')
+            self.refresh()
+        
+
+        def refresh(self) -> None:
+            self.total_stat.setText(f"Total times: {len(dates.all())}")
+            self.average_between_stat.setText(f"Average days between: {stats.average_between()}")
+            self.average_deviation_stat.setText(f"Average deviation: {stats.average_deviation()}")
+        
+
+        def open_settings(self) -> None:
+            pass
 
 
     # Methods
@@ -82,10 +103,17 @@ class Gui:
 
 
     def show(self) -> None:
-        self.elements.window.show()
+        self.elements.main_window.show()
     
 
     def loop(self) -> None:
         self.elements.app.exec_()
     
-gui = Gui()
+gui = MainGui()
+
+
+class SettingsGui: # I have decided to work on this later.
+    """Holds settingss"""
+
+    class Elements:
+        pass
