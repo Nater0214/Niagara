@@ -4,7 +4,7 @@
 
 # Imports
 from statistics import mean
-from datetime import timedelta
+from datetime import timedelta, date
 
 import dates
 
@@ -15,8 +15,7 @@ def average_between() -> int:
 
     dates_ = dates.all()
 
-    amounts_deltas = [dates_[i + 1] - dates_[i] for i in range(len(dates_) - 1)]
-    return round(mean([amount.days for amount in amounts_deltas]))
+    return round(mean([amount.days for amount in [dates_[i + 1] - dates_[i] for i in range(len(dates_) - 1)]]))
 
 
 def average_deviation() -> int:
@@ -25,7 +24,16 @@ def average_deviation() -> int:
     dates_ = dates.all()
     average = timedelta(days=average_between())
 
-    amounts_deltas = [dates_[i + 1] - dates_[i] for i in range(len(dates_) - 1)]
-    deviation_deltas = [abs(amount - average) for amount in amounts_deltas]
+    return round(mean([deviation.days for deviation in [abs(amount - average) for amount in [dates_[i + 1] - dates_[i] for i in range(len(dates_) - 1)]]]))
 
-    return round(mean([deviation.days for deviation in deviation_deltas]))
+
+def predict_next_date() -> date:
+    """Predicts the next date of the event"""
+
+    return dates.last_date() + timedelta(days=average_between())
+
+
+def predict_next_date_range() -> tuple[date]:
+    """Predicts the next date range of the event"""
+
+    return (predict_next_date() - timedelta(days=average_deviation()), predict_next_date() + timedelta(days=average_deviation()))

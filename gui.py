@@ -28,6 +28,8 @@ class MainGui:
             self.super_self = super_self
 
             # Elements
+            # Everything in here should be self-explanatory
+
             # App, window, and frame
             self.app = QApplication([])
             with open("style.qss", 'rt') as file:
@@ -50,7 +52,7 @@ class MainGui:
 
             # Stats
             self.stats_group = QGroupBox("Stats:")
-            self.window_layout.addWidget(self.stats_group, 1, 0, 3, 2)
+            self.window_layout.addWidget(self.stats_group, 1, 0, 2, 2)
             self.stats_group_layout = QVBoxLayout(self.stats_group)
 
             self.stats_group_layout.addSpacing(10)
@@ -64,13 +66,26 @@ class MainGui:
             self.average_deviation_stat = QLabel(f"Average deviation: {stats.average_deviation()}")
             self.stats_group_layout.addWidget(self.average_deviation_stat)
 
+            # Prediction
+            self.prediction_group = QGroupBox("Prediction:")
+            self.window_layout.addWidget(self.prediction_group, 0, 2, 2, 2)
+            self.prediction_group_layout = QVBoxLayout(self.prediction_group)
+
+            self.prediction_group_layout.addSpacing(10)
+
+            self.date_prediction = QLabel(f"Next predicted date: {stats.predict_next_date()}")
+            self.prediction_group_layout.addWidget(self.date_prediction)
+
+            self.range_prediction = QLabel(f"Next predicted date range: ±{(stats.predict_next_date_range()[1] - stats.predict_next_date()).days}")
+            self.prediction_group_layout.addWidget(self.range_prediction)
+
             # Refresh and settings
             self.refresh_button = QPushButton("Refresh")
             self.window_layout.addWidget(self.refresh_button, 2, 2)
             self.refresh_button.clicked.connect(self.refresh)
 
             self.settings_button = QPushButton("Settings")
-            self.window_layout.addWidget(self.settings_button, 3, 2)
+            self.window_layout.addWidget(self.settings_button, 2, 3)
             self.settings_button.clicked.connect(self.open_settings)
 
 
