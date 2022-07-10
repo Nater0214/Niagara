@@ -1,3 +1,9 @@
+/*
+    I did not create this
+    This style was created by sommerc
+    The original is here: https://github.com/sommerc/pyqt-stylesheets/blob/master/pyqtcss/src/dark_orange/style.qss
+*/
+
 QToolTip
 {
      border: 1px solid black;
