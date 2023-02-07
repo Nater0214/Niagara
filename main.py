@@ -5,7 +5,7 @@
 # Imports
 from gui import gui
 
-# Deffinitions
+# Definitions
 def main():
     gui.show()
     gui.loop()
