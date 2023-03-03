@@ -6,7 +6,7 @@
 from statistics import mean
 from datetime import timedelta, date
 
-import dates
+import src.dates as dates
 
 
 # Methods
