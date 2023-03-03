@@ -62,7 +62,6 @@ class MainWindow(QMainWindow, ui_main.Ui_MainWindow):
         try:
             self.averageBetweenStat.setText(f"Average days between: {stats.average_between()}")
             self.averageDeviationStat.setText(f"Average deviation: {stats.average_deviation()}")
-        
         except (StatisticsError, TypeError):
             self.averageBetweenStat.setText(f"Average days between: None")
             self.averageDeviationStat.setText(f"Average deviation: None")
